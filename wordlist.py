@@ -28,7 +28,19 @@ class WordList:
         return words
 
     def check_word(self, word):
-        """Is word in word list?"""
+        # Add doctest here instead of in the init and add some case sensitivity test cases
+        """Is word in word list?
+        
+            >>> wl = WordList("test_dictionary.txt")
+            >>> wl.check_word('CAT')
+            True
+
+            >>> wl.check_word('MONKEY')
+            False
+
+            >>> wl.check_word('Cat')
+            False
+        """
 
         return word in self.words
 

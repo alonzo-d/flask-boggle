@@ -23,19 +23,26 @@ class BoggleAppTestCase(TestCase):
 
         with self.client as client:
             response = client.get('/')
-            ...
-            # test that you're getting a template
+            html = response.get_data(as_text=True)
+
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("""<!-- ultimately, you'll write the JS to make a dynamic board ---
+         when you do, it will look like this: -->""", html)
 
     def test_api_new_game(self):
         """Test starting a new game."""
 
         with self.client as client:
-            ...
-            # make a post request to /api/new-game
-            # get the response body as json using .get_json()
-            # test that the game_id is a string
-            # test that the board is a list
-            # test that the game_id is in the dictionary of games (imported from app.py above)
+            resp = client.post('/api/new-game')
+            resp_data = resp.get_json()
+            game_id = resp_data['gameId']
+            board = resp_data['board']
+
+            self.assertTrue(isinstance(board, list))
+            self.assertTrue(isinstance(board[0], list))
+            
+            self.assertTrue(isinstance(game_id, str))
+            self.assertIn(game_id, games)
 
     def test_score_word(self):
         """Test if word is valid"""
