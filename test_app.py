@@ -23,7 +23,7 @@ class BoggleAppTestCase(TestCase):
 
         with self.client as client:
             response = client.get('/')
-            html = response.get_data(as_text=True)
+            html = response.get_data(as_text=True )
 
             self.assertEqual(response.status_code, 200)
             self.assertIn("""<!-- ultimately, you'll write the JS to make a dynamic board ---
@@ -33,10 +33,10 @@ class BoggleAppTestCase(TestCase):
         """Test starting a new game."""
 
         with self.client as client:
-            resp = client.post('/api/new-game')
-            resp_data = resp.get_json()
-            game_id = resp_data['gameId']
-            board = resp_data['board']
+            response = client.post('/api/new-game')
+            response_data = response.get_json()
+            game_id = response_data['gameId']
+            board = response_data['board']
 
             self.assertTrue(isinstance(board, list))
             self.assertTrue(isinstance(board[0], list))
